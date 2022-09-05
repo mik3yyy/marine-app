@@ -1,0 +1,19 @@
+{
+  "name": "bank-safe",
+  "version": "1.0.0",
+  "description": "banking application",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "author": "okpechi chibuikem michael",
+  "license": "ISC",
+  "dependencies": {
+    "env": "^0.0.2",
+    "express": "^4.18.1",
+    "md5": "^2.3.0",
+    "mongoose": "^6.5.4",
+    "nodemon": "^2.0.19"
+  }
+}
