@@ -1,7 +1,7 @@
 const User = require('../models/user');
 const md5= require('md5');
 exports.signUp=async (req,res)=>{
-    console.log('hello');
+   
     const body = req.body;
 
     let user=User({
