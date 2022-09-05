@@ -10,22 +10,21 @@ exports.signUp=async (req,res)=>{
         lastname: body.lastname,
         email:body.lastname,
         phonenumber:body.phonenumber,
-        dateofbirth:md5(body.dateofbirth),
+        dateofbirth:body.dateofbirth,
         gender:body.gender,
         username:body.username,
         password:md5(body.password),
         pin:md5(body.pin),
-        bvn:md5(body.bvn)
+        bvn:body.bvn
         
   });
   user = await user.save();
 
 
     res.status(200).json({
-        status:'sucess',
-        data:{
+       
             user
-        }
+    
     });
 }
 
