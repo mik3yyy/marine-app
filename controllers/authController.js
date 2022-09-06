@@ -38,9 +38,9 @@ exports.login=async(req,res)=>{
         res
         .status(400)
         .json({ msg: "User with this Username or password does not exist!" });
-    }
+    }else{
 
     res.json(user);
-
+    }
 
 }
