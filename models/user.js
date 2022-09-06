@@ -51,7 +51,18 @@ const userSchema= mongoose.Schema({
         type:String,
         required: true,
         trim:true
+    },
+    accountnumber:{
+        type:String,
+        required: true,
+        trim:true
+    },
+    balance:{
+        type:Number,
+        required: true,
+        trim:true
     }
+   
 
 });
 
