@@ -37,7 +37,7 @@ exports.Transefer=async (req,res)=>{
           }
         });
 
-        res.json({satus:"Suceffully Transfer"});
+        res.json({status:"Suceffully Transfer"});
 
     }else{
     res.json({error:"Something went wrong try again later!"});
