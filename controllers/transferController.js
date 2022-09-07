@@ -1,7 +1,18 @@
 const User = require('../models/user');
 const Transefer = require('../models/transfer');
 
-
+exports.findAccount= async(req,res)=>{
+    const body=req.body;
+    const user=await User.findOne({accountnumber:body.accountnumber});
+   
+    if(user){
+        
+        res.json({accountnumber:user.accountnumber,username:user.username});
+    }
+    else{
+        res.json({error:"This user does not exist"});
+    }
+}
 
 exports.Transefer=async (req,res)=>{
     const body = req.body;
