@@ -14,7 +14,7 @@ exports.findAccount= async(req,res)=>{
     }
 }
 
-exports.Transefer=async (req,res)=>{
+exports.Transfer=async (req,res)=>{
     const body = req.body;
     const amount=body.amount;
     const sender=body.sender;
