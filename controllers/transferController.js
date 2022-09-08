@@ -1,5 +1,5 @@
 const User = require('../models/user');
-const Transefer = require('../models/transfer');
+const Transfer = require('../models/transfer');
 
 exports.findAccount= async(req,res)=>{
     const body=req.body;
@@ -48,6 +48,19 @@ exports.Transfer=async (req,res)=>{
         
           }
         });
+        let transfer= new  Transfer({
+            senderusername:sender.username,
+            senderaccount:sender.accountnumber,
+            receiverusername:receiver.username,
+            receiveraccount:receiver.accountnumber,
+            amount:amount,
+            narration:narration
+            
+        });
+        
+        transfer = await transfer.save();
+
+
 
         res.json({status:"Suceffully Transfer",newamout:newsenderamount});
 

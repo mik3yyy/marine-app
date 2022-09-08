@@ -32,7 +32,12 @@ exports.signUp=async (req,res)=>{
 
 exports.login=async(req,res)=>{
      const body=req.body;
-    let user= await User.findOne({username:body.username,password:md5(body.password)});
+    let user;
+    if(body.hased==true){
+        user= await User.findOne({username:body.username,password:body.password});
+    }else{
+        user= await User.findOne({username:body.username,password:md5(body.password)});
+    }
 
 
 

@@ -1,7 +1,7 @@
 const mongoose= require('mongoose');
 
 const TranferSchema = mongoose.Schema({
-    sendername:{
+    senderusername:{
         type:String,
         required: true,
         trim:true
@@ -11,7 +11,7 @@ const TranferSchema = mongoose.Schema({
         required: true,
         trim:true
     },
-    receivername:{
+    receiverusername:{
         type:String,
         required: true,
         trim:true
@@ -26,7 +26,7 @@ const TranferSchema = mongoose.Schema({
         required: true,
         trim:true
     },
-    beneficiary:{
+    narration:{
         type:String,
         required: true,
         trim:true
