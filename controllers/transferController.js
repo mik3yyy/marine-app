@@ -19,6 +19,7 @@ exports.Transfer=async (req,res)=>{
     const amount=body.amount;
     const sender=body.sender;
     const receiver =body.receiver;
+    const narration =body.narration;
 
     const Sender= await User.find({accountnumber:sender});
     const Receiver=await User.find({accountnumber:receiver});
@@ -48,7 +49,7 @@ exports.Transfer=async (req,res)=>{
           }
         });
 
-        res.json({status:"Suceffully Transfer"});
+        res.json({status:"Suceffully Transfer",newamout:newsenderamount});
 
     }else{
     res.json({error:"Something went wrong try again later!"});
