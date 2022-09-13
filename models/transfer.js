@@ -41,7 +41,26 @@ const TranferSchema = mongoose.Schema({
         type:String,
         required: true,
         trim:true
+    },
+    time:{
+        type:String,
+        required:true,
+    },
+    day:{
+        type:String,
+        required:true,
+    },
+    month:{
+        type:String,
+        required:true,
+    },
+    year:{
+        type:String,
+        required:true,
     }
+
+    
+
 
 });
 

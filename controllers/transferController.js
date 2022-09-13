@@ -48,6 +48,7 @@ exports.Transfer=async (req,res)=>{
         
           }
         });
+        var time=new Date(Date.now());
         let transfer= new  Transfer({
             senderusername:sender.username,
             senderaccount:sender.accountnumber,
@@ -56,7 +57,11 @@ exports.Transfer=async (req,res)=>{
             amount:amount,
             narration:narration,
             sendernewbalance:newsenderamount,
-            receivernewbalance:newreceiveramount
+            receivernewbalance:newreceiveramount,
+            time:time.getHours(),
+            day:time.getDay(),
+            month:time.getMonth(),
+            year:time.getFullYear()
             
         });
         
