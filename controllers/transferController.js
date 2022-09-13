@@ -59,7 +59,7 @@ exports.Transfer=async (req,res)=>{
             sendernewbalance:newsenderamount,
             receivernewbalance:newreceiveramount,
             time:time.getHours(),
-            day:time.getDay(),
+            day:time.getDate(),
             month:time.getMonth(),
             year:time.getFullYear()
             
