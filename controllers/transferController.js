@@ -1,6 +1,6 @@
 const User = require('../models/user');
 const Transfer = require('../models/transfer');
-
+//USED TO AUTHENTICATE ACCOUNT
 exports.findAccount= async(req,res)=>{
     const body=req.body;
     const user=await User.findOne({accountnumber:body.accountnumber});
@@ -13,7 +13,7 @@ exports.findAccount= async(req,res)=>{
         res.json({error:"This user does not exist"});
     }
 }
-
+//USED TO TRANSFER TO ACCOUNT
 exports.Transfer=async (req,res)=>{
     const body = req.body;
     const amount=body.amount;
@@ -59,7 +59,7 @@ exports.Transfer=async (req,res)=>{
             receivernewbalance:newreceiveramount
             
         });
-        console.log(transfer);
+        
         transfer = await transfer.save();
 
 
@@ -70,4 +70,22 @@ exports.Transfer=async (req,res)=>{
     res.json({error:"Something went wrong try again later!"});
     }
 
+}
+//USED TO GET USERS 
+exports.TransferHistory= async(req,res)=>{
+    const body= req.body;
+
+    
+    if(body.accountnumber!=null){
+        let userHistory=await Transfer.find({$or:[{senderaccount: body.accountnumber},{receiveraccount:body.accountnumber}]});
+        if(userHistory){
+            res.json(userHistory);
+
+        }else{
+            res.status(404).json({status:'no transaction'});
+        }
+    }else{
+        res.status(400).json({error:'please input accountnumber'})
+    }
+    
 }
