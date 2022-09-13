@@ -11,6 +11,7 @@ const TranferSchema = mongoose.Schema({
         required: true,
         trim:true
     },
+    
     receiverusername:{
         type:String,
         required: true,
@@ -22,6 +23,16 @@ const TranferSchema = mongoose.Schema({
         trim:true
     },
     amount:{
+        type:Number,
+        required: true,
+        trim:true
+    },
+    sendernewbalance:{
+        type:Number,
+        required: true,
+        trim:true
+    },
+    receivernewbalance:{
         type:Number,
         required: true,
         trim:true

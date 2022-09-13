@@ -54,10 +54,12 @@ exports.Transfer=async (req,res)=>{
             receiverusername:receiver.username,
             receiveraccount:receiver.accountnumber,
             amount:amount,
-            narration:narration
+            narration:narration,
+            sendernewbalance:newsenderamount,
+            receivernewbalance:newreceiveramount
             
         });
-        
+        console.log(transfer);
         transfer = await transfer.save();
 
 
