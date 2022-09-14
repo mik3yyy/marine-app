@@ -52,12 +52,17 @@ exports.Transfer=async (req,res)=>{
           }
         });
         if(beneficiary=='true'){
-            let beneficary= new Beneficiary({
-                useraccount:sender.accountnumber,  
-                beneficiaryusername:receiver.username,
-                beneficiaryaccount:receiver.accountnumber,
-            });
-            beneficary=await beneficary.save();
+            let exist=await Beneficiary.findOne({beneficiaryaccount:receiver.accountnumber});
+           
+            if(!exist){
+                let beneficary= new Beneficiary({
+                    useraccount:sender.accountnumber,  
+                    beneficiaryusername:receiver.username,
+                    beneficiaryaccount:receiver.accountnumber,
+                });
+                beneficary=await beneficary.save();
+            }
+            
 
         }else if(beneficiary==null||beneficiary==''||beneficiary=='false'){
     
