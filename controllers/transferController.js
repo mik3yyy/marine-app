@@ -92,6 +92,7 @@ exports.Transfer=async (req,res)=>{
 }
 //USED TO GET USERS 
 exports.TransferHistory= async(req,res)=>{
+
     const body= req.body;
 
     
@@ -107,4 +108,20 @@ exports.TransferHistory= async(req,res)=>{
         res.status(400).json({error:'please input accountnumber'})
     }
     
+
+}
+exports.getBeneficary=async(req,res)=>{
+
+    const user= req.body.accountnumber;
+    
+    if(user!=null){
+        const beneficarylist=await Beneficiary.find({useraccount:user});
+        if(beneficarylist!=null){
+            res.json(beneficarylist);
+        }else{
+            res.status(404).json({error:'User not found'})
+        }
+    }else{
+        res.status(400).json({error:"error"})
+    }
 }
