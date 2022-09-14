@@ -1,5 +1,7 @@
 const User = require('../models/user');
 const Transfer = require('../models/transfer');
+const  Beneficiary = require('../models/beneficary');
+
 //USED TO AUTHENTICATE ACCOUNT
 exports.findAccount= async(req,res)=>{
     const body=req.body;
@@ -20,6 +22,7 @@ exports.Transfer=async (req,res)=>{
     const sender=body.sender;
     const receiver =body.receiver;
     const narration =body.narration;
+    const beneficiary= body.beneficiary;
 
     const Sender= await User.find({accountnumber:sender});
     const Receiver=await User.find({accountnumber:receiver});
@@ -48,6 +51,17 @@ exports.Transfer=async (req,res)=>{
         
           }
         });
+        if(beneficiary=='true'){
+            let beneficary= new Beneficiary({
+                useraccount:sender.accountnumber,  
+                beneficiaryusername:receiver.username,
+                beneficiaryaccount:receiver.accountnumber,
+            });
+            beneficary=await beneficary.save();
+
+        }else if(beneficiary==null||beneficiary==''||beneficiary=='false'){
+    
+        }
         var time=new Date(Date.now());
         let transfer= new  Transfer({
             senderusername:sender.username,
