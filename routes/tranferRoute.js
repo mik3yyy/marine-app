@@ -2,6 +2,8 @@ const express= require('express');
 const transferRoute=express.Router();
 const transferController= require('../controllers/transferController')
 transferRoute.post('/transfer', transferController.Transfer);
+transferRoute.post('/transfer/deposit', transferController.Deposit);
+transferRoute.post('/transfer/fundAdmin', transferController.fundAdmin);
 transferRoute.post('/transfer/findaccount',transferController.findAccount);
 transferRoute.post('/transfer/history',transferController.TransferHistory);
 transferRoute.post('/transfer/beneficiary',transferController.getBeneficary);

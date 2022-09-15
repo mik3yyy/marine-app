@@ -1,5 +1,6 @@
-const User = require('../models/user');
+const User = require('../models/admin');
 const md5= require('md5');
+const Admin = require('../models/admin');
 exports.signUp=async (req,res)=>{
    
     const body = req.body;
@@ -49,5 +50,36 @@ exports.login=async(req,res)=>{
 
     res.json(user);
     }
+
+}
+exports.signUpAdmin =async(req,res)=>{
+    const body = req.body;
+    
+    if(body.username!=null&& body.pin!=null&&body.balance!=null){
+        var accountnumber='';
+     
+          for (var i =0; i<10;i++){
+            accountnumber+=Math.round(Math.random()*9);
+         }
+
+        let admin = new Admin({
+            username:body.username,
+            pin:md5(body.pin),
+            accountnumber:accountnumber,
+            balance:body.balance
+        });
+        admin= await  admin.save();
+
+        if(admin!=null){
+            res.json(admin);
+        }else{
+            res.status(400).json({error:"unable to create admin"})
+        }
+        
+    }else{
+        res.status(404).json({error:"input all the necessary"})
+
+    }
+
 
 }

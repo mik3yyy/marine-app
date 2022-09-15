@@ -1,6 +1,102 @@
 const User = require('../models/user');
+const Admin = require('../models/admin');
 const Transfer = require('../models/transfer');
 const  Beneficiary = require('../models/beneficary');
+const md5= require('md5');
+//ADMIN
+exports.Deposit=async(req,res)=>{
+    const body = req.body;
+    const amount=body.amount;
+    const sender=body.sender;
+    const receiver =body.receiver;
+    const pin =body.pin;
+  
+
+
+    const Sender= await Admin.findOne({username:sender,pin:md5(body.pin)});
+    const Receiver=await User.find({accountnumber:receiver});
+
+    
+  
+    
+    if(Sender!=null&&Receiver[0]!=null){
+      
+     let sender= Sender;
+     let receiver=Receiver[0];
+     
+     const newsenderamount= parseFloat( sender.balance)-parseFloat(amount);
+     const newreceiveramount= parseFloat( receiver.balance)+parseFloat(amount);
+    
+      Admin.updateOne({accountnumber:sender.accountnumber},{ $set: {balance: newsenderamount }}, function(err){
+        if(err){
+         return   res.json({error:"Something went wrong try again later!",error:err});
+        } else{
+        
+        }
+      });
+       User.updateOne({accountnumber:receiver.accountnumber},{ $set: {balance: newreceiveramount }},function(err){
+        if(err){
+          return  res.json({error:"Something went wrong try again later!",error:err});
+          } else{
+        
+          }
+        });
+        
+        var time=new Date(Date.now());
+        let transfer= new  Transfer({
+            senderusername:'Keep Safe',
+            senderaccount:'KeepSafe Bank account',
+            receiverusername:receiver.username,
+            receiveraccount:receiver.accountnumber,
+            amount:amount,
+            narration:'Deposit from keep Safe Bank, keep banking on us!',
+            sendernewbalance:newsenderamount,
+            receivernewbalance:newreceiveramount,
+            time:time.getHours(),
+            day:time.getDate(),
+            month:time.getMonth(),
+            year:time.getFullYear()
+            
+        });
+        
+        transfer = await transfer.save();
+
+
+
+        res.json({status:"Suceffully Transfer",newamout:newsenderamount});
+
+    }else{
+    res.json({error:"Something went wrong try again later!"});
+    }
+
+}
+
+exports.fundAdmin=async(req,res)=>{
+    const body= req.body;
+    const username= body.username;
+    const amount=parseFloat(body.balance);
+    let  admin= await Admin.findOne({username:username});
+   
+    if(amount!=null&&username!=null&&admin!=null){
+    const oldamount=parseFloat( admin.balance);
+       
+
+        let newamount= oldamount+amount;
+        newamount=parseFloat(newamount);
+      
+      Admin.updateOne({username:username},{ $set: {balance: newamount }}, function(err){
+        console.log(err);
+            if(err){
+             return   res.json({error:"Something went wrong try again later!",error:err});
+            } else{
+          res.status(200).json({status:'Transaction succesful',newamount:newamount});
+            
+            }
+          });
+    }else{
+        res.status(404).json({error:'user not found '});
+    }
+}
 
 //USED TO AUTHENTICATE ACCOUNT
 exports.findAccount= async(req,res)=>{
