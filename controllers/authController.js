@@ -1,4 +1,4 @@
-const User = require('../models/admin');
+const User = require('../models/user');
 const md5= require('md5');
 const Admin = require('../models/admin');
 exports.signUp=async (req,res)=>{
@@ -34,6 +34,7 @@ exports.signUp=async (req,res)=>{
 exports.login=async(req,res)=>{
      const body=req.body;
     let user;
+    
     if(body.hashed==true){
         user= await User.findOne({username:body.username,password:body.password});
     }else{
