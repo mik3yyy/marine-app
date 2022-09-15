@@ -60,7 +60,7 @@ const userSchema= mongoose.Schema({
     balance:{
         type:Number,
         required: true,
-        trim:true
+     
     }
    
 

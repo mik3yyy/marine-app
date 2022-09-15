@@ -30,7 +30,7 @@ exports.signUp=async (req,res)=>{
         pin:md5(body.pin),
         bvn:body.bvn,
         accountnumber:accountnumber,
-        balance:0.00
+        balance:0.0005
         
   });
   user = await user.save();
