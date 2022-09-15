@@ -5,12 +5,18 @@ exports.signUp=async (req,res)=>{
    
     const body = req.body;
      var accountnumber='';
-     var balance=Math.random()*10000;
+    var exist = await User.findOne({username:body.username});
+     
+    if(exist){
+        res.status(400).json({error:'Username already exist'});
+    }else{
+
+    
      for (var i =0; i<10;i++){
             accountnumber+=Math.round(Math.random()*9);
      }
+    
 
- 
     let user=User({
       
         name:body.name,
@@ -24,11 +30,12 @@ exports.signUp=async (req,res)=>{
         pin:md5(body.pin),
         bvn:body.bvn,
         accountnumber:accountnumber,
-        balance:balance
+        balance:0.00
         
   });
   user = await user.save();
   res.status(200).json({user});
+  }
 }
 
 exports.login=async(req,res)=>{
@@ -55,7 +62,12 @@ exports.login=async(req,res)=>{
 }
 exports.signUpAdmin =async(req,res)=>{
     const body = req.body;
-    
+
+    var exist = await Admin.findOne({username:body.username});
+     
+    if(exist){
+        res.status(400).json({error:'Username already exist'});
+    }else{
     if(body.username!=null&& body.pin!=null&&body.balance!=null){
         var accountnumber='';
      
@@ -82,5 +94,5 @@ exports.signUpAdmin =async(req,res)=>{
 
     }
 
-
+}
 }
