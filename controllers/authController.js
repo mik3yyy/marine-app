@@ -1,6 +1,7 @@
 const User = require('../models/user');
 const md5= require('md5');
 const Admin = require('../models/admin');
+const Card= require('../models/card');
 exports.signUp=async (req,res)=>{
    
     const body = req.body;
@@ -88,11 +89,81 @@ exports.signUpAdmin =async(req,res)=>{
         }else{
             res.status(400).json({error:"unable to create admin"})
         }
-        
     }else{
-        res.status(404).json({error:"input all the necessary"})
+        res.status(404).json({error:"input all the necessary"});
 
     }
 
 }
+}
+exports.createcard= async(req,res)=>{
+    const body = req.body;
+
+    const accountnumber= body.accountnumber;
+    const accountname=body.accountname;
+    const color= body.color;
+    const blocked= body.blocked;
+    if(accountname!=null&&accountnumber!=null){
+        let cardnumber ='';
+        let cvv='';
+        for (var j=0;j!=20;j=j+0){
+            
+            for(var i=0; i<16;i++){ 
+            cardnumber+=Math.round(Math.random()*9);
+            }
+            for(var i=0;i<3;i++){
+                cvv+=Math.round(Math.random()*9); 
+            }
+            
+            var exist=await Card.findOne({$or:[{cardnumber:cardnumber},{cvv:cvv}]});
+            
+            if(!exist){
+                j=20;
+            }
+
+        }
+
+        
+
+
+    var date = new Date();
+    var futureYear = date.getFullYear() + 4;
+    date.setFullYear(futureYear);
+  
+
+    let card = new Card({
+        accountnumber:accountnumber,
+        cardnumber:cardnumber,
+        cardname:accountname,
+        validMonth:date.getMonth()+1,
+        validYear:date.getFullYear(),
+        cvv:cvv,
+        color:color,
+        blocked:blocked,
+    });
+    card =await card.save();
+    res.status(200).json({status:"succesful"});
+   
+    }else{
+        res.status(400).json({error:"error, try again"});
+    }
+}
+exports.getCards =async(req,res)=>{
+    const body = req.body;
+    const accountnumber= body.accountnumber;
+    // console.log(accountnumber);
+    if (accountnumber!=null){
+        let cards=await Card.find({});
+        // console.log(cards); 
+        if(cards[0]!=null){
+            res.json(cards);
+        }
+        else{
+            res.status(400).json({error:"error,try again Later"});
+        }
+        
+    }else{
+        res.status(400).json({error:"error,try again"});
+    }
+
 }

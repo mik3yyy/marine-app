@@ -148,7 +148,7 @@ exports.Transfer=async (req,res)=>{
           }
         });
         if(beneficiary=='true'){
-            let exist=await Beneficiary.findOne({beneficiaryaccount:receiver.accountnumber});
+            let exist=await Beneficiary.findOne({useraccount:sender.accountnumber, beneficiaryaccount:receiver.accountnumber});
            
             if(!exist){
                 let beneficary= new Beneficiary({
@@ -164,6 +164,7 @@ exports.Transfer=async (req,res)=>{
     
         }
         var time=new Date(Date.now());
+    
         let transfer= new  Transfer({
             senderusername:sender.username,
             senderaccount:sender.accountnumber,
