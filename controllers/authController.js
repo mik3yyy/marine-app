@@ -154,7 +154,7 @@ exports.getCards =async(req,res)=>{
     const accountnumber= body.accountnumber;
     // console.log(accountnumber);
     if (accountnumber!=null){
-        let cards=await Card.find({});
+        let cards=await Card.find({accountnumber:accountnumber});
         // console.log(cards); 
         if(cards[0]!=null){
             res.json(cards);
