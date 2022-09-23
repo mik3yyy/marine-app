@@ -68,7 +68,6 @@ exports.Deposit=async(req,res)=>{
     }else{
     res.json({error:"Something went wrong try again later!"});
     }
-
 }
 
 exports.fundAdmin=async(req,res)=>{
@@ -221,9 +220,9 @@ exports.getBeneficary=async(req,res)=>{
         if(beneficarylist!=null){
             res.json(beneficarylist);
         }else{
-            res.status(404).json({error:'User not found'})
+            res.status(404).json({error:'User not found'});
         }
     }else{
-        res.status(400).json({error:"error"})
+        res.status(400).json({error:"error"});
     }
 }

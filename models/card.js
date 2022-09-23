@@ -36,6 +36,9 @@ const CardSchema= moongoose.Schema({
     },
     blocked:{
         type:Boolean
+    },
+    pin: {
+        type:String
     }
 
 

@@ -98,11 +98,11 @@ exports.signUpAdmin =async(req,res)=>{
 }
 exports.createcard= async(req,res)=>{
     const body = req.body;
-
     const accountnumber= body.accountnumber;
     const accountname=body.accountname;
     const color= body.color;
     const blocked= body.blocked;
+    const pin =body.pin;
     if(accountname!=null&&accountnumber!=null){
         let cardnumber ='';
         let cvv='';
@@ -140,6 +140,7 @@ exports.createcard= async(req,res)=>{
         cvv:cvv,
         color:color,
         blocked:blocked,
+        pin:pin
     });
     card =await card.save();
     res.status(200).json({status:"succesful"});
