@@ -160,7 +160,7 @@ exports.getCards =async(req,res)=>{
             res.json(cards);
         }
         else{
-            res.status(200).json({empty:"no cards"});
+            res.status(404).json({empty:"no cards"});
         }
         
     }else{
