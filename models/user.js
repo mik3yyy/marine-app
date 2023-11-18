@@ -1,70 +1,44 @@
 const mongoose= require('mongoose');
 
-const userSchema= mongoose.Schema({
-    name:{
-        type:String,
-        required: true,
-        trim:true
 
-    },
-    lastname: {
-        type:String,
+const userSchema = mongoose.Schema({
+    password: {
+        type: String,
         required: true,
-        trim:true
+        trim: true
     },
-    email:{
-        type:String,
+    email: {
+        type: String,
         required: true,
-        trim:true
+        trim: true
     },
-    phonenumber:{
-        type:String,
+    fullname: {
+        type: String,
         required: true,
-        trim:true
+        trim: true
     },
-    dateofbirth:{
-        type:String,
+    username: {
+        type: String,
         required: true,
-        trim:true
+        trim: true
     },
-    gender:{
-        type:String,
-        required: true,
-        trim:true
+    dateOfBirth: {
+        type: Date, // Assuming you want to store the date as a Date object
+        required: true
     },
-    username:{
-        type:String,
+    gender: {
+        type: String,
         required: true,
-        trim:true
+        enum: ['male', 'female'] // Only 'male' or 'female' values are allowed
     },
-    password:{
-        type:String,
+    token:{
+        type: String,
         required: true,
-        trim:true
-    },
-    pin:{
-        type:String,
-        required: true,
-        trim:true
-    },
-    bvn:{
-        type:String,
-        required: true,
-        trim:true
-    },
-    accountnumber:{
-        type:String,
-        required: true,
-        trim:true
-    },
-    balance:{
-        type:Number,
-        required: true,
-
+        trim: true
     }
-   
-
 });
+
+
 
 const User= mongoose.model('user',userSchema);
 module.exports=User;

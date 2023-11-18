@@ -1,32 +1,19 @@
-const mongoose= require('mongoose');
+const mongoose = require('mongoose');
 
-const adminSchema= mongoose.Schema({
-   
-    username:{
-        type:String,
+const AdminSchema = mongoose.Schema({
+    username: {
+        type: String,
         required: true,
-        trim:true
+        unique: true,
+        trim: true,
     },
-   
-    pin:{
-        type:String,
+    password: {
+        type: String,
         required: true,
-        trim:true
     },
-    
-    accountnumber:{
-        type:String,
-        required: true,
-        trim:true
-    },
-    balance:{
-        type:Number,
-        required: true,
-        trim:true
-    }
-   
-
+    // You can include other admin-related properties as needed
 });
 
-const Admin= mongoose.model('admin',adminSchema);
-module.exports=Admin;
+const Admin = mongoose.model('admins', AdminSchema);
+
+module.exports = Admin;
